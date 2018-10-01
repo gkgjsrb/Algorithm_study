@@ -1,16 +1,16 @@
 #include <iostream>
 #include <vector>
-#include <deque>
-#include <algorithm>
-#include <functional>
+#include <deque> // 양쪽에서 삽입 삭제하기 위해
+#include <algorithm> // SORT하기 위해
+#include <functional> // UNIQUE 사용하기 위해
 
 using namespace std;
 
 int main(){
-	int TC;
-	int N;
-	int K;
-	cin >> TC;
+	int TC; // Test Case의 개수
+	int N; // 숫자의 개수 4의 배수로 주어짐
+	int K; // k번째로 큰 수를 구하기 위한 k
+	cin >> TC; 
 	for (int k = 1; k <= TC; k++) {
 		cin >> N >> K;
 		vector<vector<char>> res;
@@ -20,19 +20,20 @@ int main(){
 			char tmp;
 			cin >> tmp;
 			a.push_back(tmp);
-		}
+		}  // 일단 deque에 초기 값을 입력 받음
 		
-		for (int m = 0; m < (N / 4); m++) {
-			a.push_front(a.back());
-			a.pop_back();
-			for (int i = 0; i < N; i = i + (N / 4)) {
+		for (int m = 0; m < (N / 4); m++) { // 총 몇번 회전하면 초기 값과 같아 지는지 n/4번 회전하면 같아짐 ex) 12면 3번 회전하면 초기값과 같아짐
+			a.push_front(a.back()); // 가장 뒤에 있는걸 가장 앞에 추가함
+			a.pop_back(); // 뒤에 있는걸 삭제
+			for (int i = 0; i < N; i = i + (N / 4)) { // 각 변에 있는 16진수를 넣기위해 사용
 				vector<char> tmp;
-				for (int j = 0; j < (N / 4); j++) {
-					tmp.push_back(a[i + j]);
+				for (int j = 0; j < (N / 4); j++) { // 각 변에 몇개가 있는지를 파악하여 넣음
+					tmp.push_back(a[i + j]); 
 				}
 				res.push_back(tmp);
 			}
 		}
+		// 여기 까지하면 모든 가능한 조합이 표시됨
 		vector<int> sum;
 		for (auto it : res) {
 			int tmp=0;
@@ -87,10 +88,10 @@ int main(){
 				}
 			}
 			sum.push_back(tmp);	
-		}
-		sort(sum.begin(), sum.end(), greater<int>());
-		sum.erase(unique(sum.begin(), sum.end()),sum.end());
-		cout << "#" << k << " " << sum.at(K-1) << '\n';
+		} // 각 조합의 계산 값을 받아오는 코드
+		sort(sum.begin(), sum.end(), greater<int>()); // 내림 차순으로 정렬
+		sum.erase(unique(sum.begin(), sum.end()),sum.end()); // 내림 차순으로 정렬한 것 중 겹치는 것을 제거
+		cout << "#" << k << " " << sum.at(K-1) << '\n'; // k번째 수를 
 	}
 
     return 0;
