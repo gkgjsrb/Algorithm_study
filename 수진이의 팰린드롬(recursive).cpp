@@ -1,12 +1,9 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <algorithm>
-#include <string.h>
 
 using namespace std;
 
-int d[11][11];
 
 int palindrome(string s,int start, int end) {
 	if (start == end) return 1;
@@ -14,9 +11,8 @@ int palindrome(string s,int start, int end) {
 		if (s[start] == s[end]) return 1;
 		else return 0;
 	}
-	if (d[start][end] > 0) return d[start][end];
-	if (s[start] != s[end]) return d[start][end] = 0;
-	else return d[start][end] = palindrome(s,start + 1, end - 1);
+	if (s[start] != s[end]) return 0;
+	else return palindrome(s,start + 1, end - 1);
 }
 
 int main()
@@ -26,7 +22,6 @@ int main()
 	char *ptr;
 	cin >> T;
 	for (int t = 1; t <= T; t++) {
-		memset(d,0,sizeof(d));
         cin >> s;
 		int size = s.size();
 		int cnt = 0;
