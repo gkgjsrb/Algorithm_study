@@ -1,3 +1,6 @@
 # gkgjsrb_study
 
-개인적인 공부 목록
+SWEA : https://www.swexpertacademy.com/main/main.do
+
+
+
